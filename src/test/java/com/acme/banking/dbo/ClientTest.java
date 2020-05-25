@@ -56,4 +56,20 @@ public class ClientTest {
     public void shouldGetErrorWhenCreatedWithNullName() {
         new Client(dummyId, null);
     }
+
+    @Test
+    public void shouldAccountAddToListWhenCreateAccount() {
+        UUID stubId = UUID.randomUUID();
+        double stubAmount= 0.66;
+
+        Client sut = new Client(dummyId, dummyName);
+
+        sut.createAccount(stubId, stubAmount);
+
+        assertThat(sut.getAccounts().size(),
+                allOf(
+                        equalTo(1),
+                        notNullValue()
+                ));
+    }
 }
