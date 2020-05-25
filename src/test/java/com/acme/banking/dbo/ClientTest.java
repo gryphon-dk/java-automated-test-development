@@ -64,12 +64,15 @@ public class ClientTest {
 
         Client sut = new Client(dummyId, dummyName);
 
-        sut.createAccount(stubId, stubAmount);
+        SavingAccount account = sut.createAccount(stubId, stubAmount);
 
         assertThat(sut.getAccounts().size(),
                 allOf(
                         equalTo(1),
                         notNullValue()
                 ));
+        assertThat(sut.getAccounts().contains(account),
+                allOf(equalTo(Boolean.TRUE))
+        );
     }
 }

@@ -17,8 +17,10 @@ public class Client {
         this.name = name;
     }
 
-    public void createAccount(UUID id, double amount) {
-        accounts.add(new SavingAccount(id, this, amount));
+    public SavingAccount createAccount(UUID id, double amount) {
+        SavingAccount account = new SavingAccount(id, this, amount);
+        accounts.add(account);
+        return account;
     }
 
     public UUID getId() {

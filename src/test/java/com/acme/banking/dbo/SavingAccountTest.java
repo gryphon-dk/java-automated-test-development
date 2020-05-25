@@ -3,6 +3,7 @@ package com.acme.banking.dbo;
 import com.acme.banking.dbo.domain.Client;
 import com.acme.banking.dbo.domain.SavingAccount;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.UUID;
@@ -12,13 +13,14 @@ import static org.junit.Assert.assertThat;
 
 public class SavingAccountTest {
     UUID dummyId;
-    Client dummyClient;
     double dummyAmount;
+
+    @Rule
+    Client client =  new Client(UUID.randomUUID(), "dummy client name");
 
     @Before
     public void initDummies() {
         dummyId = UUID.randomUUID();
-        dummyClient =  new Client(UUID.randomUUID(), "dummy client name");
         dummyAmount = 12.23;
     }
 
@@ -58,7 +60,7 @@ public class SavingAccountTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldGetErrorWhenCreatedWithNullId() {
-        new SavingAccount(null, dummyClient, dummyAmount);
+        new SavingAccount(null, client, dummyAmount);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -68,6 +70,6 @@ public class SavingAccountTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldGetErrorWhenCreatedWithLessThanZeroAmount() {
-        new SavingAccount(dummyId, dummyClient, -1);
+        new SavingAccount(dummyId, client, -1);
     }
 }
